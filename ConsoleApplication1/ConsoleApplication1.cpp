@@ -8,10 +8,11 @@
 #include <ctime>
 #include <cstdlib>
 #include <windows.h>
+#include <limits.h>
 
 void resetInput() {
     std::cin.clear();
-    std::cin.ignore(32767, '\n');
+    std::cin.ignore(INT_MAX, '\n');
     std::cout << "\n Введите корректные данные \n \n";
 }
 
