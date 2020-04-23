@@ -18,9 +18,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
         invitationToInput();
         std::cin >> choice;
         if (std::cin.fail() || (choice != 1 && choice != 2)) {
-            std::cin.clear();
-            std::cin.ignore(32767, '\n');
-            std::cout << "\n Введите корректные данные \n \n";
+            resetInput();
         }
         else {
             std::cin.ignore(32767, '\n');
@@ -40,9 +38,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                     std::cout << "Введите минимальное значение \n \n";
                     std::cin >> minElement;
                     if (std::cin.fail()) {
-                        std::cin.clear();
-                        std::cin.ignore(32767, '\n');
-                        std::cout << "\n Введите корректные данные \n \n";
+                        resetInput();
                     }
                     else {
                         std::cin.ignore(32767, '\n');
@@ -50,9 +46,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                             std::cout << "\n Введите максимальное значение \n \n";
                             std::cin >> maxElement;
                             if (std::cin.fail()) {
-                                std::cin.clear();
-                                std::cin.ignore(32767, '\n');
-                                std::cout << "\n Введите корректные данные \n \n";
+                                resetInput()
                             }
                             else {
                                 std::cin.ignore(32767, '\n');
@@ -75,6 +69,12 @@ void inputOfArrayByRandom(int** array, int row, int column) {
     }
 }
 
+void resetInput() {
+    std::cin.clear();
+    std::cin.ignore(32767, '\n');
+    std::cout << "\n Введите корректные данные \n \n";
+}
+
 void invitationToInput() {
     std::cout << "\n Выберите отрезок, по которому будут вычисляться случайные значения: \n \n";
     std::cout << "1: от 0 до 9 \n";
@@ -90,9 +90,7 @@ void inputOfArrayManually(int** array, int row, int column) {
                 std::cout << "\n Введите " << "[" << i << "] [" << j << "] -ый элемент массива ";
                 std::cin >> array[i][j];
                 if (std::cin.fail() || column <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(32767, '\n');
-                    std::cout << "\n Введите корректные данные \n \n";
+                    resetInput()
                 }
                 else {
                     std::cin.ignore(32767, '\n');
@@ -119,9 +117,7 @@ int inputOfRow(int row) {
         std::cout << "Введите количество строк в массиве: ";
         std::cin >> row;
         if(std::cin.fail() || row <= 0) {
-            std::cin.clear();
-            std::cin.ignore(32767, '\n');
-            std::cout << "\n Введите корректные данные \n \n";
+            resetInput()
         }
         else {
             std::cin.ignore(32767, '\n');
@@ -136,9 +132,7 @@ int inputOfColumn(int column) {
         std::cout << "Введите количество столбцов в массиве: ";
         std::cin >> column;
         if(std::cin.fail() || column <= 0) {
-            std::cin.clear();
-            std::cin.ignore(32767, '\n');
-            std::cout << "\n Введите корректные данные \n \n";
+            resetInput()
         }
         else {
             std::cin.ignore(32767, '\n');
@@ -173,9 +167,7 @@ void choiceOfInput(int** array, int row, int column) {
         std::cout << "2: Ввод вручную \n \n";
         std::cin >> choice;
         if (std::cin.fail() || ((choice != 1) && (choice != 2))) {
-            std::cin.clear();
-            std::cin.ignore(32767, '\n');
-            std::cout << "\n Введите корректные данные \n \n";
+            resetInput()
         }
         else {
             std::cin.ignore(32767, '\n');
