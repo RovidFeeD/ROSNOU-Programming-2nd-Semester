@@ -25,11 +25,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
             switch (choice) {
             case 1: {
                 std::cout << '\n';
-                for (int i = 0; i < row; i++) {
-                    for (int j = 0; j < column; j++) {
-                        array[i][j] = minElement + rand() % (maxElement - minElement);
-                    }
-                }
+                randomRange(row, column, minElement, maxElement);
                 flag = false;
                 break;
             case 2: {
@@ -51,11 +47,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                             else {
                                 std::cin.ignore(32767, '\n');
                                 std::cout << '\n';
-                                for (int i = 0; i < row; i++) {
-                                    for (int j = 0; j < column; j++) {
-                                        array[i][j] = minElement + rand() % (maxElement - minElement + 1);
-                                    }
-                                }
+                                randomRange(row, column, minElement, maxElement);
                                 flag = false;
                             }
                         }
@@ -65,6 +57,14 @@ void inputOfArrayByRandom(int** array, int row, int column) {
             }
             }
             }
+        }
+    }
+}
+
+void randomRange(int row, int column, int minElement, int maxElement) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            array[i][j] = minElement + rand() % (maxElement - minElement + 1);
         }
     }
 }
