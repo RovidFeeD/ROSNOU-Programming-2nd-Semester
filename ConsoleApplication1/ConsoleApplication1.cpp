@@ -64,7 +64,7 @@ void inputRange(int** array, int minElement, int maxElement, int row, int column
 }
 
 // Заполнение матрицы случайными элементами
-void inputOfArrayByRandom(int** array, int row, int column) { 
+void arrayRandomFill(int** array, int row, int column) { 
     int  minElement = 0, maxElement = 9;
     bool flag;
     short choice;
@@ -92,7 +92,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
 }
 
 // Заполнение матрицы вручную
-void inputOfArrayManually(int** array, int row, int column) { 
+void arrayInput(int** array, int row, int column) { 
     bool flag;
     flag = true;
     for (int i = 0; i < row; i++) {
@@ -113,7 +113,7 @@ void inputOfArrayManually(int** array, int row, int column) {
 }
 
 // Вывод элементов матрицы
-void outputOfArray(int** array, int row, int column) { 
+void arrayOutput(int** array, int row, int column) { 
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
             std::cout << array[i][j] << " ";
@@ -123,7 +123,7 @@ void outputOfArray(int** array, int row, int column) {
 }
 
 // Ввод количества строк в матрице
-int inputOfRow(int row) { 
+int rowInput(int row) { 
     while (true) {
         std::cout << "Введите количество строк в массиве: ";
         std::cin >> row;
@@ -138,7 +138,7 @@ int inputOfRow(int row) {
 }
 
 // Ввод количества столбцов в матрице
-int inputOfColumn(int column) { 
+int columnInput(int column) { 
     while (true) {
         std::cout << "Введите количество столбцов в массиве: ";
         std::cin >> column;
@@ -170,7 +170,7 @@ void countColumnsWithoutZeroes(int** array, int row, int column) {
 }
 
 // Выбор способа ввода элементов матрицы
-void choiceOfInput(int** array, int row, int column) { 
+void inputChoice(int** array, int row, int column) { 
     short choice = 0;
     bool flag;
     flag = true;
@@ -186,12 +186,12 @@ void choiceOfInput(int** array, int row, int column) {
             std::cin.ignore(32767, '\n');
             switch (choice) {
             case 1: {
-                inputOfArrayByRandom(array, row, column);
+                arrayRandomFill(array, row, column);
                 flag = false;                                   
             }
             break;
             case 2: {
-                inputOfArrayManually(array, row, column);
+                arrayInput(array, row, column);
                 flag = false;
             }
             break;
@@ -207,13 +207,13 @@ int main()
     srand(time(NULL));
     int row = 0, column = 0;
     int** array;
-    row = inputOfRow(row);
-    column = inputOfColumn(column);
+    row = rowInput(row);
+    column = columnInput(column);
     array = new int* [row]; // Инициализация двумерного динамического массива
     for (int i = 0; i < row; i++) {
         array[i] = new int[column];
     }
-    choiceOfInput(array, row, column);
-    outputOfArray(array, row, column);
+    inputChoice(array, row, column);
+    arrayOutput(array, row, column);
     countColumnsWithoutZeroes(array, row, column);
 }
