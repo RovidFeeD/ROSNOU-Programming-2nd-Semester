@@ -15,9 +15,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
     short choice;
     bool flag = true;
     while (flag) {
-        std::cout << "\n Выберите отрезок, по которому будут вычисляться случайные значения: \n \n";
-        std::cout << "1: от 0 до 9 \n";
-        std::cout << "2: задать отрезок вручную \n \n";
+        invitationToInput();
         std::cin >> choice;
         if (std::cin.fail() || (choice != 1 && choice != 2)) {
             std::cin.clear();
@@ -75,6 +73,12 @@ void inputOfArrayByRandom(int** array, int row, int column) {
             }
         }
     }
+}
+
+void invitationToInput() {
+    std::cout << "\n Выберите отрезок, по которому будут вычисляться случайные значения: \n \n";
+    std::cout << "1: от 0 до 9 \n";
+    std::cout << "2: задать отрезок вручную \n \n";
 }
 
 // Заполнение матрицы вручную
