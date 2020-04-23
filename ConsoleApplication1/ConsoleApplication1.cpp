@@ -9,13 +9,68 @@
 #include <cstdlib>
 #include <windows.h>
 
+void resetInput() {
+    std::cin.clear();
+    std::cin.ignore(32767, '\n');
+    std::cout << "\n Введите корректные данные \n \n";
+}
+
+void inputInvitation() {
+    std::cout << "\n Выберите отрезок, по которому будут вычисляться случайные значения: \n \n";
+    std::cout << "1: от 0 до 9 \n";
+    std::cout << "2: задать отрезок вручную \n \n";
+}
+
+void randomRange(int** array, int row, int column, int minElement, int maxElement) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            array[i][j] = minElement + rand() % (maxElement - minElement + 1);
+        }
+    }
+}
+
+bool inputRandomRange(int** array, bool flag, int row, int column, int minElement, int maxElement) {
+    std::cout << '\n';
+    randomRange(array, row, column, minElement, maxElement);
+    flag = false;
+    return flag;
+}
+
+bool inputRange(int** array, bool flag, int minElement, int maxElement, int row, int column) {
+    std::cout << '\n';
+    while (flag) {
+        std::cout << "Введите минимальное значение \n \n";
+        std::cin >> minElement;
+        if (std::cin.fail()) {
+            resetInput();
+        }
+        else {
+            std::cin.ignore(32767, '\n');
+            while (flag) {
+                std::cout << "\n Введите максимальное значение \n \n";
+                std::cin >> maxElement;
+                if (std::cin.fail()) {
+                    resetInput();
+                }
+                else {
+                    std::cin.ignore(32767, '\n');
+                    std::cout << '\n';
+                    randomRange(array, row, column, minElement, maxElement);
+                    flag = false;
+                }
+            }
+        }
+    }
+    return flag;
+}
+
 // Заполнение матрицы случайными элементами
 void inputOfArrayByRandom(int** array, int row, int column) { 
     int  minElement = 0, maxElement = 10;
     short choice;
     bool flag = true;
     while (flag) {
-        invitationToInput();
+        inputInvitation();
         std::cin >> choice;
         if (std::cin.fail() || (choice != 1 && choice != 2)) {
             resetInput();
@@ -24,61 +79,16 @@ void inputOfArrayByRandom(int** array, int row, int column) {
             std::cin.ignore(32767, '\n');
             switch (choice) {
             case 1: {
-                std::cout << '\n';
-                randomRange(row, column, minElement, maxElement);
-                flag = false;
+                flag = inputRandomRange(array, flag, row, column, minElement, maxElement);
                 break;
             case 2: {
-                std::cout << '\n';
-                while (flag) {
-                    std::cout << "Введите минимальное значение \n \n";
-                    std::cin >> minElement;
-                    if (std::cin.fail()) {
-                        resetInput();
-                    }
-                    else {
-                        std::cin.ignore(32767, '\n');
-                        while (flag) {
-                            std::cout << "\n Введите максимальное значение \n \n";
-                            std::cin >> maxElement;
-                            if (std::cin.fail()) {
-                                resetInput()
-                            }
-                            else {
-                                std::cin.ignore(32767, '\n');
-                                std::cout << '\n';
-                                randomRange(row, column, minElement, maxElement);
-                                flag = false;
-                            }
-                        }
-                    }
-                }
+                flag = inputRange(array, flag, minElement, maxElement, row, column);
                 break;
             }
             }
             }
         }
     }
-}
-
-void randomRange(int row, int column, int minElement, int maxElement) {
-    for (int i = 0; i < row; i++) {
-        for (int j = 0; j < column; j++) {
-            array[i][j] = minElement + rand() % (maxElement - minElement + 1);
-        }
-    }
-}
-
-void resetInput() {
-    std::cin.clear();
-    std::cin.ignore(32767, '\n');
-    std::cout << "\n Введите корректные данные \n \n";
-}
-
-void invitationToInput() {
-    std::cout << "\n Выберите отрезок, по которому будут вычисляться случайные значения: \n \n";
-    std::cout << "1: от 0 до 9 \n";
-    std::cout << "2: задать отрезок вручную \n \n";
 }
 
 // Заполнение матрицы вручную
@@ -90,7 +100,7 @@ void inputOfArrayManually(int** array, int row, int column) {
                 std::cout << "\n Введите " << "[" << i << "] [" << j << "] -ый элемент массива ";
                 std::cin >> array[i][j];
                 if (std::cin.fail() || column <= 0) {
-                    resetInput()
+                    resetInput();
                 }
                 else {
                     std::cin.ignore(32767, '\n');
@@ -117,7 +127,7 @@ int inputOfRow(int row) {
         std::cout << "Введите количество строк в массиве: ";
         std::cin >> row;
         if(std::cin.fail() || row <= 0) {
-            resetInput()
+            resetInput();
         }
         else {
             std::cin.ignore(32767, '\n');
@@ -132,7 +142,7 @@ int inputOfColumn(int column) {
         std::cout << "Введите количество столбцов в массиве: ";
         std::cin >> column;
         if(std::cin.fail() || column <= 0) {
-            resetInput()
+            resetInput();
         }
         else {
             std::cin.ignore(32767, '\n');
@@ -167,7 +177,7 @@ void choiceOfInput(int** array, int row, int column) {
         std::cout << "2: Ввод вручную \n \n";
         std::cin >> choice;
         if (std::cin.fail() || ((choice != 1) && (choice != 2))) {
-            resetInput()
+            resetInput();
         }
         else {
             std::cin.ignore(32767, '\n');
