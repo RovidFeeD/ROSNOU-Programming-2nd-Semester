@@ -11,7 +11,7 @@
 
 // Заполнение матрицы случайными элементами
 void inputOfArrayByRandom(int** array, int row, int column) { 
-    int  minEl = 0, maxEl = 10;
+    int  minElement = 0, maxElement = 10;
     short choice;
     bool flag = true;
     while (flag) {
@@ -31,7 +31,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                 std::cout << '\n';
                 for (int i = 0; i < row; i++) {
                     for (int j = 0; j < column; j++) {
-                        array[i][j] = minEl + rand() % (maxEl - minEl);
+                        array[i][j] = minElement + rand() % (maxElement - minElement);
                     }
                 }
                 flag = false;
@@ -40,7 +40,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                 std::cout << '\n';
                 while (flag) {
                     std::cout << "Введите минимальное значение \n \n";
-                    std::cin >> minEl;
+                    std::cin >> minElement;
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(32767, '\n');
@@ -50,7 +50,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                         std::cin.ignore(32767, '\n');
                         while (flag) {
                             std::cout << "\n Введите максимальное значение \n \n";
-                            std::cin >> maxEl;
+                            std::cin >> maxElement;
                             if (std::cin.fail()) {
                                 std::cin.clear();
                                 std::cin.ignore(32767, '\n');
@@ -61,7 +61,7 @@ void inputOfArrayByRandom(int** array, int row, int column) {
                                 std::cout << '\n';
                                 for (int i = 0; i < row; i++) {
                                     for (int j = 0; j < column; j++) {
-                                        array[i][j] = minEl + rand() % (maxEl - minEl + 1);
+                                        array[i][j] = minElement + rand() % (maxElement - minElement + 1);
                                     }
                                 }
                                 flag = false;
