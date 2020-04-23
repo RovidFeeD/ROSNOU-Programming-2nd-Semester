@@ -66,7 +66,7 @@ bool inputRange(int** array, bool flag, int minElement, int maxElement, int row,
 
 // Заполнение матрицы случайными элементами
 void inputOfArrayByRandom(int** array, int row, int column) { 
-    int  minElement = 0, maxElement = 10;
+    int  minElement = 0, maxElement = 9;
     short choice;
     bool flag = true;
     while (flag) {
