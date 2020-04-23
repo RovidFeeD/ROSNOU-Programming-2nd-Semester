@@ -30,15 +30,15 @@ void randomRange(int** array, int row, int column, int minElement, int maxElemen
     }
 }
 
-bool inputRandomRange(int** array, bool flag, int row, int column, int minElement, int maxElement) {
+void inputRandomRange(int** array, int row, int column, int minElement, int maxElement) {
     std::cout << '\n';
     randomRange(array, row, column, minElement, maxElement);
-    flag = false;
-    return flag;
 }
 
-bool inputRange(int** array, bool flag, int minElement, int maxElement, int row, int column) {
+void inputRange(int** array, int minElement, int maxElement, int row, int column) {
     std::cout << '\n';
+    bool flag;
+    flag = true;
     while (flag) {
         std::cout << "Введите минимальное значение \n \n";
         std::cin >> minElement;
@@ -50,9 +50,8 @@ bool inputRange(int** array, bool flag, int minElement, int maxElement, int row,
             while (flag) {
                 std::cout << "\n Введите максимальное значение \n \n";
                 std::cin >> maxElement;
-                if (std::cin.fail()) {
+                if (std::cin.fail())
                     resetInput();
-                }
                 else {
                     std::cin.ignore(32767, '\n');
                     std::cout << '\n';
@@ -62,14 +61,14 @@ bool inputRange(int** array, bool flag, int minElement, int maxElement, int row,
             }
         }
     }
-    return flag;
 }
 
 // Заполнение матрицы случайными элементами
 void inputOfArrayByRandom(int** array, int row, int column) { 
     int  minElement = 0, maxElement = 9;
+    bool flag;
     short choice;
-    bool flag = true;
+    flag = true;
     while (flag) {
         inputInvitation();
         std::cin >> choice;
@@ -79,14 +78,14 @@ void inputOfArrayByRandom(int** array, int row, int column) {
         else {
             std::cin.ignore(32767, '\n');
             switch (choice) {
-            case 1: {
-                flag = inputRandomRange(array, flag, row, column, minElement, maxElement);
+            case 1: 
+                inputRandomRange(array, row, column, minElement, maxElement);
+                flag = false;
                 break;
-            case 2: {
-                flag = inputRange(array, flag, minElement, maxElement, row, column);
+            case 2: 
+                inputRange(array, minElement, maxElement, row, column);
+                flag = false;
                 break;
-            }
-            }
             }
         }
     }
@@ -94,7 +93,8 @@ void inputOfArrayByRandom(int** array, int row, int column) {
 
 // Заполнение матрицы вручную
 void inputOfArrayManually(int** array, int row, int column) { 
-    bool flag = true;
+    bool flag;
+    flag = true;
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
             while (flag) {
@@ -154,7 +154,8 @@ int inputOfColumn(int column) {
 
 // Подсчет столбцов, в которых нет нулей
 void countColumnsWithoutZeroes(int** array, int row, int column) { 
-    bool flag = true;
+    bool flag;
+    flag = true;
     unsigned short counter = 0;
     for (int i = 0; i < column; i++) {
         flag = true;
@@ -171,7 +172,8 @@ void countColumnsWithoutZeroes(int** array, int row, int column) {
 // Выбор способа ввода элементов матрицы
 void choiceOfInput(int** array, int row, int column) { 
     short choice = 0;
-    bool flag = true;
+    bool flag;
+    flag = true;
     while (flag) {
         std::cout << "\n Выберите способ ввода массива: \n \n";
         std::cout << "1: Ввод случайными числами \n";
@@ -185,7 +187,7 @@ void choiceOfInput(int** array, int row, int column) {
             switch (choice) {
             case 1: {
                 inputOfArrayByRandom(array, row, column);
-                flag = false;
+                flag = false;                                   
             }
             break;
             case 2: {
