@@ -9,7 +9,8 @@
 #include <cstdlib>
 #include <windows.h>
 
-void inputOfArrayByRandom(int** array, int row, int column) { // Заполнение матрицы случайными элементами
+// Заполнение матрицы случайными элементами
+void inputOfArrayByRandom(int** array, int row, int column) { 
     int  minEl = 0, maxEl = 10;
     short choice;
     bool flag = true;
@@ -76,7 +77,8 @@ void inputOfArrayByRandom(int** array, int row, int column) { // Заполне�
     }
 }
 
-void inputOfArrayManually(int** array, int row, int column) { // Заполнение матрицы вручную
+// Заполнение матрицы вручную
+void inputOfArrayManually(int** array, int row, int column) { 
     bool flag = true;
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
@@ -97,7 +99,8 @@ void inputOfArrayManually(int** array, int row, int column) { // Заполне�
     }
 }
 
-void outputOfArray(int** array, int row, int column) { // Вывод элементов матрицы
+// Вывод элементов матрицы
+void outputOfArray(int** array, int row, int column) { 
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
             std::cout << array[i][j] << " ";
@@ -106,7 +109,8 @@ void outputOfArray(int** array, int row, int column) { // Вывод элеме�
     }
 }
 
-int inputOfRow(int row) { // Ввод количества строк в матрице
+// Ввод количества строк в матрице
+int inputOfRow(int row) { 
     while (true) {
         std::cout << "Введите количество строк в массиве: ";
         std::cin >> row;
@@ -122,7 +126,8 @@ int inputOfRow(int row) { // Ввод количества строк в мат�
     }
 }
 
-int inputOfColumn(int column) { // Ввод количества столбцов в матрице
+// Ввод количества столбцов в матрице
+int inputOfColumn(int column) { 
     while (true) {
         std::cout << "Введите количество столбцов в массиве: ";
         std::cin >> column;
@@ -138,7 +143,8 @@ int inputOfColumn(int column) { // Ввод количества столбцо�
     }
 }
 
-void countColumnsWithoutZeroes(int** array, int row, int column) { // Подсчет столбцов, в которых нет нулей
+// Подсчет столбцов, в которых нет нулей
+void countColumnsWithoutZeroes(int** array, int row, int column) { 
     bool flag = true;
     unsigned short counter = 0;
     for (int i = 0; i < column; i++) {
@@ -153,7 +159,8 @@ void countColumnsWithoutZeroes(int** array, int row, int column) { // Подсч
     std::cout << "\n Столбцов, не содержащих ни одного нулевого элемента: " << counter << '\n';
 }
 
-void choiceOfInput(int** array, int row, int column) { // Выбор способа ввода элементов матрицы
+// Выбор способа ввода элементов матрицы
+void choiceOfInput(int** array, int row, int column) { 
     short choice = 0;
     bool flag = true;
     while (flag) {
