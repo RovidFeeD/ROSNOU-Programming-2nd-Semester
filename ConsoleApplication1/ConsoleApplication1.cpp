@@ -46,14 +46,14 @@ void inputRange(int** array, int minElement, int maxElement, int row, int column
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(INT_MAX, '\n');
             while (flag) {
                 std::cout << "\n Введите максимальное значение \n \n";
                 std::cin >> maxElement;
                 if (std::cin.fail())
                     resetInput();
                 else {
-                    std::cin.ignore(32767, '\n');
+                    std::cin.ignore(INT_MAX, '\n');
                     std::cout << '\n';
                     randomRange(array, row, column, minElement, maxElement);
                     flag = false;
@@ -76,7 +76,7 @@ void arrayRandomFill(int** array, int row, int column) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(SHRT_MAX, '\n');
             switch (choice) {
             case 1: 
                 inputRandomRange(array, row, column, minElement, maxElement);
@@ -104,7 +104,7 @@ void arrayInput(int** array, int row, int column) {
                     resetInput();
                 }
                 else {
-                    std::cin.ignore(32767, '\n');
+                    std::cin.ignore(INT_MAX, '\n');
                     break;
                 }
             }
@@ -131,7 +131,7 @@ int rowInput(int row) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(INT_MAX, '\n');
             return row;
         }
     }
@@ -146,26 +146,36 @@ int columnInput(int column) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(INT_MAX, '\n');
             return column;
         }
     }
+}
+
+short zeroCounter(bool flag, short counter) {
+    if (flag == true)
+        counter++;
+    return counter;
+}
+
+short checkZeroes(int** array, int row, int column, bool flag, short counter) {
+    for (int i = 0; i < column; i++) {
+        flag = true;
+        for (int j = 0; j < row; j++) {
+            if(array[j][i] == 0)
+                flag = false;
+        }
+        counter = zeroCounter(flag, counter);
+    }
+    return counter;
 }
 
 // Подсчет столбцов, в которых нет нулей
 void countColumnsWithoutZeroes(int** array, int row, int column) { 
     bool flag;
     flag = true;
-    unsigned short counter = 0;
-    for (int i = 0; i < column; i++) {
-        flag = true;
-        for (int j = 0; j < row; j++) {
-            if (array[j][i] == 0)
-                flag = false;
-        }
-        if (flag == true)
-            counter++;
-    }
+    short counter = 0;
+    counter = checkZeroes(array, row, column, flag, counter);
     std::cout << "\n Столбцов, не содержащих ни одного нулевого элемента: " << counter << '\n';
 }
 
@@ -183,7 +193,7 @@ void inputChoice(int** array, int row, int column) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(SHRT_MAX, '\n');
             switch (choice) {
             case 1: {
                 arrayRandomFill(array, row, column);
