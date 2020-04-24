@@ -10,19 +10,23 @@
 #include <windows.h>
 #include <limits.h>
 
+// reset of input
 void resetInput() {
     std::cin.clear();
     std::cin.ignore(INT_MAX, '\n');
     std::cout << "\n Введите корректные данные \n \n";
 }
 
+// invitation to input
 void inputInvitation() {
     std::cout << "\n Выберите отрезок, по которому будут вычисляться случайные значения: \n \n";
     std::cout << "1: от 0 до 9 \n";
     std::cout << "2: задать отрезок вручную \n \n";
 }
 
-void randomRange(int** array, int row, int column, int minElement, int maxElement) {
+// fil of random range 
+void fillRandomRange(int** array, int row, int column, int minElement, int maxElement) {
+    std::cout << '\n';
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
             array[i][j] = minElement + rand() % (maxElement - minElement + 1);
@@ -30,11 +34,7 @@ void randomRange(int** array, int row, int column, int minElement, int maxElemen
     }
 }
 
-void inputRandomRange(int** array, int row, int column, int minElement, int maxElement) {
-    std::cout << '\n';
-    randomRange(array, row, column, minElement, maxElement);
-}
-
+// input range of random elements in two-dimensional array
 void inputRange(int** array, int minElement, int maxElement, int row, int column) {
     std::cout << '\n';
     bool flag;
@@ -46,16 +46,16 @@ void inputRange(int** array, int minElement, int maxElement, int row, int column
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(INT_MAX, '\n');
             while (flag) {
                 std::cout << "\n Введите максимальное значение \n \n";
                 std::cin >> maxElement;
                 if (std::cin.fail())
                     resetInput();
                 else {
-                    std::cin.ignore(32767, '\n');
+                    std::cin.ignore(INT_MAX, '\n');
                     std::cout << '\n';
-                    randomRange(array, row, column, minElement, maxElement);
+                    fillRandomRange(array, row, column, minElement, maxElement);
                     flag = false;
                 }
             }
@@ -63,8 +63,8 @@ void inputRange(int** array, int minElement, int maxElement, int row, int column
     }
 }
 
-// Заполнение матрицы случайными элементами
-void inputOfArrayByRandom(int** array, int row, int column) { 
+// random fill of two-deminsional array
+void arrayRandomFill(int** array, int row, int column) { 
     int  minElement = 0, maxElement = 9;
     bool flag;
     short choice;
@@ -76,10 +76,10 @@ void inputOfArrayByRandom(int** array, int row, int column) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(SHRT_MAX, '\n');
             switch (choice) {
             case 1: 
-                inputRandomRange(array, row, column, minElement, maxElement);
+                fillRandomRange(array, row, column, minElement, maxElement);
                 flag = false;
                 break;
             case 2: 
@@ -91,8 +91,8 @@ void inputOfArrayByRandom(int** array, int row, int column) {
     }
 }
 
-// Заполнение матрицы вручную
-void inputOfArrayManually(int** array, int row, int column) { 
+// input of two-deminsional array 
+void arrayInput(int** array, int row, int column) { 
     bool flag;
     flag = true;
     for (int i = 0; i < row; i++) {
@@ -104,16 +104,17 @@ void inputOfArrayManually(int** array, int row, int column) {
                     resetInput();
                 }
                 else {
-                    std::cin.ignore(32767, '\n');
+                    std::cin.ignore(INT_MAX, '\n');
                     break;
                 }
             }
+            std::cout << '\n';
         }
     }
 }
 
-// Вывод элементов матрицы
-void outputOfArray(int** array, int row, int column) { 
+// print elements of two-dimensional array 
+void arrayOutput(int** array, int row, int column) { 
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
             std::cout << array[i][j] << " ";
@@ -122,8 +123,8 @@ void outputOfArray(int** array, int row, int column) {
     }
 }
 
-// Ввод количества строк в матрице
-int inputOfRow(int row) { 
+// input number of rows in two-dimensional array
+int rowInput(int row) { 
     while (true) {
         std::cout << "Введите количество строк в массиве: ";
         std::cin >> row;
@@ -131,14 +132,14 @@ int inputOfRow(int row) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(INT_MAX, '\n');
             return row;
         }
     }
 }
 
-// Ввод количества столбцов в матрице
-int inputOfColumn(int column) { 
+// input number of columns in two-dimensional array
+int columnInput(int column) { 
     while (true) {
         std::cout << "Введите количество столбцов в массиве: ";
         std::cin >> column;
@@ -146,31 +147,43 @@ int inputOfColumn(int column) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(INT_MAX, '\n');
             return column;
         }
     }
 }
 
-// Подсчет столбцов, в которых нет нулей
-void countColumnsWithoutZeroes(int** array, int row, int column) { 
-    bool flag;
-    flag = true;
-    unsigned short counter = 0;
+// counts the number of zeros
+short zeroCounter(bool flag, short counter) {
+    if (flag == true)
+        counter++;
+    return counter;
+}
+
+// checks availibility of zeroes
+short checkZeroes(int** array, int row, int column, bool flag, short counter) {
     for (int i = 0; i < column; i++) {
         flag = true;
         for (int j = 0; j < row; j++) {
-            if (array[j][i] == 0)
+            if(array[j][i] == 0)
                 flag = false;
         }
-        if (flag == true)
-            counter++;
+        counter = zeroCounter(flag, counter);
     }
+    return counter;
+}
+
+// counting of columns without zeros
+void countColumnsWithoutZeroes(int** array, int row, int column) { 
+    bool flag;
+    flag = true;
+    short counter = 0;
+    counter = checkZeroes(array, row, column, flag, counter);
     std::cout << "\n Столбцов, не содержащих ни одного нулевого элемента: " << counter << '\n';
 }
 
-// Выбор способа ввода элементов матрицы
-void choiceOfInput(int** array, int row, int column) { 
+// choice of the way to input array
+void inputChoice(int** array, int row, int column) { 
     short choice = 0;
     bool flag;
     flag = true;
@@ -183,15 +196,15 @@ void choiceOfInput(int** array, int row, int column) {
             resetInput();
         }
         else {
-            std::cin.ignore(32767, '\n');
+            std::cin.ignore(SHRT_MAX, '\n');
             switch (choice) {
             case 1: {
-                inputOfArrayByRandom(array, row, column);
+                arrayRandomFill(array, row, column);
                 flag = false;                                   
             }
             break;
             case 2: {
-                inputOfArrayManually(array, row, column);
+                arrayInput(array, row, column);
                 flag = false;
             }
             break;
@@ -202,18 +215,18 @@ void choiceOfInput(int** array, int row, int column) {
 
 int main()
 {
-    SetConsoleCP(1251); // Смена локали для корректного отображения русских символов в Visual Studio
-    SetConsoleOutputCP(1251); // Смена локали для корректного отображения русских символов в Visual Studio
+    SetConsoleCP(1251); // changing the locale for correct display of russian characters
+    SetConsoleOutputCP(1251); // changing the locale for correct display of russian characters
     srand(time(NULL));
     int row = 0, column = 0;
     int** array;
-    row = inputOfRow(row);
-    column = inputOfColumn(column);
-    array = new int* [row]; // Инициализация двумерного динамического массива
+    row = rowInput(row);
+    column = columnInput(column);
+    array = new int* [row]; // initialization of two-dimensional dynamic array
     for (int i = 0; i < row; i++) {
         array[i] = new int[column];
     }
-    choiceOfInput(array, row, column);
-    outputOfArray(array, row, column);
+    inputChoice(array, row, column);
+    arrayOutput(array, row, column);
     countColumnsWithoutZeroes(array, row, column);
 }
