@@ -5,13 +5,6 @@
 #include <ctime>
 #include <cstdlib>
 
-/*void input(int *mas) {
-  for (int i = 0; i < 10; i++) {
-    std::cout << "Введите " << i + 1 << " элемент массива ";
-    std::cin >> mas[i];
-  }
-}*/
-
 void input(int* array) {
   for(int i = 0; i <= 10; i++) {
     array[i] = 45 + rand() % 11;
@@ -56,7 +49,6 @@ void choice_of_input() {
 int main() {
   srand(time(NULL));
   int array[10];
-  //choice_of_input();
   input(array);
   std::cout << "\n" << "Исходный массив " << "\n" << "\n";
   output(array);
